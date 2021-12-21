@@ -12,11 +12,11 @@
     <h1><%= title %></h1>
     <p>Welcome to <%= title %></p>
     <div class='message'>
-      <% for(let i=0; i<messages.length; i++) {%>
+      <% for(let i=0; i< messages.length; i++) {%>
         <% if (user) { %>
-        <h2>message.author.full_name</h2>
+        <h2><%= messages[i].author.full_name %></h2>
         <% } %>
-        <p>message.text</p>
+        <p><%= messages[i].text %></p>
         <% } %>
     </div>
   </body>
