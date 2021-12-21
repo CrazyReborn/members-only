@@ -1,3 +1,4 @@
+const bcrypt = require('bcryptjs');
 var createError = require('http-errors');
 var express = require('express');
 var path = require('path');
@@ -5,6 +6,9 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 const mongoose = require('mongoose');
 require('dotenv').config();
+const session = require('express-session');
+const passport = require('passport');
+const LocalStrategy = require('passport-local').Strategy;
 
 const options = {
   useNewUrlParser: true,
@@ -47,5 +51,7 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render('error');
 });
+
+app.listen(3000, () => console.log('app listening on port 3000!'));
 
 module.exports = app;

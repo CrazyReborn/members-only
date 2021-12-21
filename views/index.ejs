@@ -5,7 +5,19 @@
     <link rel='stylesheet' href='/stylesheets/style.css' />
   </head>
   <body>
+    <header>
+      <a href='/sign-up'>Sign Up</a>
+      <a href='log-in'>Log in</a>
+    </header>
     <h1><%= title %></h1>
     <p>Welcome to <%= title %></p>
+    <div class='message'>
+      <% for(let i=0; i<messages.length; i++) {%>
+        <% if (user) { %>
+        <h2>message.author.full_name</h2>
+        <% } %>
+        <p>message.text</p>
+        <% } %>
+    </div>
   </body>
 </html>
