@@ -9,6 +9,7 @@ require('dotenv').config();
 const session = require('express-session');
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
+const User = require('./models/user');
 
 const options = {
   useNewUrlParser: true,
@@ -27,6 +28,16 @@ var app = express();
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
+
+app.use(session({secret: 'cats', resave: false, saveUninitialized: true}));
+app.use(passport.initialize());
+app.use(passport.session());
+app.use(express.urlencoded({extended: false}));
+
+app.use(function(req, res, next) {
+  res.locals.currentUser = req.user;
+  next();
+});
 
 app.use(logger('dev'));
 app.use(express.json());
@@ -50,6 +61,34 @@ app.use(function(err, req, res, next) {
   // render the error page
   res.status(err.status || 500);
   res.render('error');
+});
+
+
+passport.use(
+  new LocalStrategy((username, password, done) => {
+    User.find({username: username}, (err, user) => {
+      if (err) {
+        return done(err)
+      }
+      bcrypt.compare(password, user.password, (err, res) => {
+        if (res) {
+          return done(null, user);
+        } else {
+          return done(null, false, { message: 'Incorrect password' });
+        }
+      })
+    })
+  })
+);
+
+passport.serializeUser(function(user, done) {
+  done(null, user.id);
+});
+
+passport.deserializeUser(function(id, done) {
+  User.findById(id, function(err, user) {
+    done(err, user);
+  });
 });
 
 app.listen(3000, () => console.log('app listening on port 3000!'));

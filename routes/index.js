@@ -3,6 +3,7 @@ var router = express.Router();
 const Message = require('../models/message');
 const user = require('../models/user');
 const user_controller = require('../controllers/userController');
+const passport = require('passport');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
@@ -16,5 +17,14 @@ router.get('/', function(req, res, next) {
 
 router.get('/sign-up', user_controller.create_user_get);
 router.post('/sign-up', user_controller.create_user_post);
+
+router.get('/log-in', user_controller.log_in_user_get);
+
+router.post('/log-in', 
+  passport.authenticate('local', {
+    successRedirect: '/',
+    failureRedirect: '/log-in'
+  })
+);
 
 module.exports = router;

@@ -2,7 +2,7 @@ const User = require('../models/user');
 const {body, validationResult} = require('express-validator');
 const bcrypt = require('bcryptjs');
 
-exports.create_user_get = function(req, res) {
+exports.create_user_get = (req, res) => {
     res.render('sign-up-form', {title: 'Sign Up'});
 };
 
@@ -25,7 +25,7 @@ exports.create_user_post = [
         } else {    
             bcrypt.hash(req.body.password, 10, (err, hashedPassword) => {
                 if (err) {
-                    next(err);
+                  return next(err);
                 } else {
                     const user = new User({
                         username: req.body.username,
@@ -42,4 +42,8 @@ exports.create_user_post = [
             });
         }
     }
-]
+];
+
+exports.log_in_user_get = (req, res, next) => {
+    res.render('log-in-form', {title: 'Log In'});
+};
