@@ -29,5 +29,19 @@
         <p><%= messages[i].text %></p>
         <% } %>
     </div>
+    <% if(user) { %>
+    <form action='' method='POST'>
+      <label for='message'>New Message</label>
+      <textarea name='message'></textarea>
+      <input type='submit'>
+    </form>
+    <% } %>
+    <div>
+    <% if (typeof errors !== 'undefined') { %>
+      <% for (let i=0; i < errors.length; i++) { %>
+        <p><%= errors[i].msg %></p>
+      <%} %>
+    <% } %>
+    </div>
   </body>
 </html>

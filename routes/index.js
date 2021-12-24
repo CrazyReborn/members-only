@@ -4,6 +4,7 @@ const Message = require('../models/message');
 const user = require('../models/user');
 const user_controller = require('../controllers/userController');
 const membership_controller = require('../controllers/membershipController');
+const message_controller = require('../controllers/messageController');
 const passport = require('passport');
 
 /* GET home page. */
@@ -15,6 +16,7 @@ router.get('/', function(req, res, next) {
     res.render('index', { title: 'Dashboard', messages: messages, user: req.user });
   });
 });
+router.post('/', message_controller.message_post);
 
 router.get('/sign-up', user_controller.create_user_get);
 router.post('/sign-up', user_controller.create_user_post);

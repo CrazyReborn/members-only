@@ -11,24 +11,26 @@ exports.membership_get = (req, res) => {
     }
 }
 
-exports.membership_post = (req, res) => [
+exports.membership_post = [
     body('secret').trim().isLength({min: 1}).escape().custom((value, {req}) => {
         if (value !== req.body.secter) {
             throw new Error('Wrong password');
         }
         return true;
     }),
-    User.findById(req.user._id).exec( (err, user) => {
-        console.log(user)
-        if (err) {
-            return next(err);
-        } else {
-            User.findByIdAndUpdate(user._id, { isMember: true }, function statusGranted(err, status){
+    (req, res, next) => {
+        User.findById(req.user._id).exec( (err, user) => {
+            console.log(user)
             if (err) {
-                return next(err)
+                return next(err);
+            } else {
+                User.findByIdAndUpdate(user._id, { isMember: true }, function statusGranted(err, status){
+                if (err) {
+                    return next(err)
+                }
+                res.redirect('/');
+                });
             }
-            res.redirect('/');
-            });
-        }
-    })
+        })
+    }
 ];
