@@ -29,12 +29,14 @@
         <p><%= messages[i].text %></p>
         <% } %>
     </div>
-    <% if(user) { %>
+    <% if(typeof user !== 'undefined') { %>
+      <% if(user.isMember === true) { %>
     <form action='' method='POST'>
       <label for='message'>New Message</label>
       <textarea name='message'></textarea>
       <input type='submit'>
     </form>
+    <% } %>
     <% } %>
     <div>
     <% if (typeof errors !== 'undefined') { %>
