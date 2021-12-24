@@ -9,6 +9,9 @@
       <a href='/sign-up'>Sign Up</a>
       <% if (user) { %>
         <a href='/log-out'>Log out</a>
+        <% if (!user.isMember) { %>
+          <a href='/membership'>Become a member</a>
+          <% } %>
         <% } else { %>
       <a href='/log-in'>Log in</a>
       <% } %>
@@ -18,7 +21,9 @@
     <div class='message'>
       <% for(let i=0; i< messages.length; i++) {%>
         <% if (user) { %>
-        <h2><%= messages[i].author.full_name %></h2>
+          <% if (user.isMember) { %>
+          <h2><%= messages[i].author.full_name %></h2>
+          <% } %>
         <% } %>
         <p><%= messages[i].text %></p>
         <% } %>
