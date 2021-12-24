@@ -21,4 +21,10 @@ userSchema.virtual('status').get(function() {
     }
 });
 
+userSchema.virtual('getMembership').get(function() {
+    if (this.isMember == false) {
+        return this.isMember = true;
+    }
+})
+
 module.exports = mongoose.model('User', userSchema);

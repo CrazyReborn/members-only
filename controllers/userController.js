@@ -20,7 +20,7 @@ exports.create_user_post = [
     }),
     (req, res, next) => {
         const errors = validationResult(req);
-        if(!errors.isEmpty()){
+        if(!errors.isEmpty()) {
             res.render('sign-up-form', {title: 'Sign Up', errors: errors.array()});
         } else {    
             bcrypt.hash(req.body.password, 10, (err, hashedPassword) => {

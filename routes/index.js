@@ -34,5 +34,6 @@ router.get('/log-out', (req, res) => {
 });
 
 router.get('/membership', membership_controller.membership_get);
+router.post('/membership', membership_controller.membership_post);
 
 module.exports = router;
