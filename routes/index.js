@@ -3,6 +3,7 @@ var router = express.Router();
 const Message = require('../models/message');
 const user = require('../models/user');
 const user_controller = require('../controllers/userController');
+const membership_controller = require('../controllers/membershipController');
 const passport = require('passport');
 
 /* GET home page. */
@@ -31,5 +32,7 @@ router.get('/log-out', (req, res) => {
   req.logout();
   res.redirect('/');
 });
+
+router.get('/membership', membership_controller.membership_get);
 
 module.exports = router;
