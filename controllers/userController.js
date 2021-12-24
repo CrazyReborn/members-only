@@ -31,7 +31,7 @@ exports.create_user_post = [
                         username: req.body.username,
                         password: hashedPassword,
                         first_name: req.body.first_name,
-                        last_name: req.body.second_name
+                        last_name: req.body.last_name
                     }).save(function (err) {
                         if (err) {
                             return next(err);

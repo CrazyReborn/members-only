@@ -10,8 +10,8 @@ router.get('/', function(req, res, next) {
     Message.find().populate('author').exec(function(err, messages){
     if(err) {
       next(err)
-    }
-    res.render('index', { title: 'Dashboard', messages: messages, user: false });
+    };
+    res.render('index', { title: 'Dashboard', messages: messages, user: req.user });
   });
 });
 
