@@ -1,6 +1,7 @@
 const Message = require('../models/message');
 const async = require('async');
 const { body, validationResult } = require('express-validator');
+const { DateTime} = require('luxon');
 
 exports.message_post = [
     body('message', 'Message should not be empty').trim().isLength({min: 1}).escape(),
@@ -11,7 +12,8 @@ exports.message_post = [
         
         const message = new Message({
             text: req.body.message,
-            author: req.user._id
+            author: req.user._id,
+            date: new Date().toISOString()
         })
         if (!errors.isEmpty()) {
             console.log('errors during validation')
@@ -28,3 +30,12 @@ exports.message_post = [
         }
     }
 ];
+
+exports.message_delete_post = (req, res, next) => {
+    Message.findByIdAndRemove(req.params.id, (err) => {
+        if (err) {
+            return next(err);
+        }
+        res.redirect('/');
+    })
+}

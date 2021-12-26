@@ -7,9 +7,9 @@
   <body>
     <header>
       <a href='/sign-up'>Sign Up</a>
-      <% if (user) { %>
+      <% if (typeof user !== 'undefined') { %>
         <a href='/log-out'>Log out</a>
-        <p>Membership status: <%=user.status %></p>
+        <p>Membership status: <%= user.status %></p>
         <% if (!user.isMember) { %>
           <a href='/membership'>Become a member</a>
           <% } %>
@@ -21,12 +21,18 @@
     <p>Welcome to <%= title %></p>
     <div class='message'>
       <% for(let i=0; i< messages.length; i++) {%>
-        <% if (user) { %>
+        <% if (typeof user !== 'undefined') { %>
           <% if (user.isMember) { %>
-          <h2><%= messages[i].author.full_name %></h2>
+          <h3><%= 'Author: ' + messages[i].author.full_name %></h2>
           <% } %>
         <% } %>
+        <p><%= messages[i].date %></p>
         <p><%= messages[i].text %></p>
+        <% if (typeof user != 'undefined' && user.isAdmin) { %>
+          <form action="<%= '/message/delete/' + messages[i]._id %>"" method='POST'>
+            <input type='submit' value='Delete this message'>
+          </form>
+        <% } %>
         <% } %>
     </div>
     <% if(typeof user !== 'undefined') { %>

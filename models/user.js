@@ -5,8 +5,9 @@ const userSchema = new Schema({
     username: String,
     password: String,
     isMember: Boolean,
+    isAdmin: Boolean,
     first_name: String,
-    last_name: String
+    last_name: String,
 });
 
 userSchema.virtual('full_name').get(function() {
