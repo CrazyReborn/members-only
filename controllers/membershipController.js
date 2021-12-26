@@ -24,7 +24,7 @@ exports.membership_post = [
             if (err) {
                 return next(err);
             } else {
-                User.findByIdAndUpdate(user._id, { isMember: true }, function statusGranted(err, status){
+                User.findByIdAndUpdate(user._id, { isMember: true }, function statusGranted(err){
                 if (err) {
                     return next(err)
                 }

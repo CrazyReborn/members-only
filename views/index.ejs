@@ -13,6 +13,9 @@
         <% if (!user.isMember) { %>
           <a href='/membership'>Become a member</a>
           <% } %>
+          <% if (user.isAdmin) { %>
+            <a href='/add-admin'>Add admin rights to a user</a>
+            <% } %>
         <% } else { %>
       <a href='/log-in'>Log in</a>
       <% } %>

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Add admin</title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+  </head>
+  <body>
+    <header>
+      <a href='/'>Home</a>
+    </header>
+    <h1>Add Amdin</h1>
+    <div>
+        <% if(users.length !== 0) { %>
+            <% users.forEach((user) => { %>
+                <p><%= user.username %></p>
+                <form action="<%= '/add-admin/' + user._id %>" method='POST'>
+                    <input type='submit' value='Add admin rights to a user'>
+                </form>
+            <% }) %>
+        <% } %>
+    </div>
+    <% if (typeof message != 'undefined') { %>
+        <p><%= message %></p>
+    <% } %>
+  </body>
+</html>

@@ -40,4 +40,8 @@ router.post('/membership', membership_controller.membership_post);
 
 
 router.post('/message/delete/:id', message_controller.message_delete_post);
+
+router.get('/add-admin', user_controller.admin_add_get);
+router.post('/add-admin/:id', user_controller.admin_add_post);
+
 module.exports = router;

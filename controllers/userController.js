@@ -32,7 +32,8 @@ exports.create_user_post = [
                         password: hashedPassword,
                         first_name: req.body.first_name,
                         last_name: req.body.last_name,
-                        isMember: false
+                        isMember: false,
+                        isAdmin: false
                     }).save(function (err) {
                         if (err) {
                             return next(err);
@@ -48,3 +49,30 @@ exports.create_user_post = [
 exports.log_in_user_get = (req, res, next) => {
     res.render('log-in-form', {title: 'Log In'});
 };
+
+exports.admin_add_get = (req, res) => {
+    if (req.user === 'undifined') {
+        res.redirect('/');
+    } else {
+        User.find({isAdmin: false}).exec((err, users) => {
+            if (err) {
+                next(err);
+            } if (users.length == 0) {
+                res.render('add-admin', { users: users , message: 'No found users'});
+            }
+            else {
+                res.render('add-admin', { users: users });
+            }
+        });
+    }
+}
+
+exports.admin_add_post = (req, res, next) => {
+    console.log('start');
+    User.findByIdAndUpdate(req.params.id, {isAdmin: true}, (err) => {
+        if (err) {
+            next(err)
+        }
+        res.redirect('/');
+    })
+}
